@@ -1,0 +1,36 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+
+}
+
+.container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.5rem;
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.case{
+  aspect-ratio: 1/1;
+  background: #36363680;
+  cursor: pointer;
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+button{
+  border: none;
+}
+
+.Texte{
+  color: white;
+  text-align: center;
+  font-size: x-large;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
