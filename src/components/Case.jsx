@@ -2,7 +2,7 @@ import React from "react";
 
 function Case({ value, caseclick, disabled }) {
     return (
-        <button className="case" disabled={disabled} onClick={caseclick}>
+        <button className="case" onClick={caseclick} disabled={disabled}>
             {value}
         </button>
     );

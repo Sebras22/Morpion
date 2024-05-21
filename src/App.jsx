@@ -3,35 +3,31 @@ import "./App.css";
 import Case from "./components/Case.jsx";
 
 export default function App() {
-    const [morpion, setMorpion] = useState(Array(9));
+    const [morpion, setMorpion] = useState(Array(9).fill(""));
     const [move, setMove] = useState(true);
 
     const Gagnant = Victoire(morpion);
     let tours;
 
-    {
-        Gagnant === null
-            ? (tours = (move ? " 🐶 " : "  🐱  ") + " est le prochain joueur")
-            : (tours = Gagnant + " est le gagnant");
+    if (Gagnant === null) {
+        tours = (move ? " 🐶 " : " 🐱 ") + " est le prochain joueur";
+    } else {
+        tours = Gagnant + " est le gagnant";
     }
 
     function ClickJeu(i) {
-        const prochainmove = morpion.slice();
-        prochainmove[i] = " 🐶 ";
-
-        if (morpion[i] && Victoire(morpion)) {
+        if (morpion[i] || Gagnant) {
             return;
         }
-        {
-            move === false
-                ? (prochainmove[i] = "  🐱  ")
-                : (prochainmove[i] = " 🐶 ");
-        }
+
+        const prochainmove = morpion.slice();
+        prochainmove[i] = move ? " 🐶 " : " 🐱 ";
 
         setMorpion(prochainmove);
         setMove(!move);
     }
-    function Victoire() {
+
+    function Victoire(morpion) {
         const Combinaisons = [
             [0, 1, 2],
             [3, 4, 5],
@@ -55,63 +51,18 @@ export default function App() {
         return null;
     }
 
-    // function Case({ value, caseclick }) {
-    //     return (
-    //         <button className="case" disabled={Gagnant} onClick={caseclick}>
-    //             {value}
-    //         </button>
-    //     );
-    // }
-
     return (
         <>
             <div className="Texte">{tours}</div>
             <div className="container">
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[0]}
-                    caseclick={() => ClickJeu(0)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[1]}
-                    caseclick={() => ClickJeu(1)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[2]}
-                    caseclick={() => ClickJeu(2)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[3]}
-                    caseclick={() => ClickJeu(3)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[4]}
-                    caseclick={() => ClickJeu(4)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[5]}
-                    caseclick={() => ClickJeu(5)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[6]}
-                    caseclick={() => ClickJeu(6)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[7]}
-                    caseclick={() => ClickJeu(7)}
-                />
-                <Case
-                    disabled={Gagnant}
-                    value={morpion[8]}
-                    caseclick={() => ClickJeu(8)}
-                />
+                {morpion.map((value, index) => (
+                    <Case
+                        key={index}
+                        disabled={Boolean(Gagnant)}
+                        value={value}
+                        caseclick={() => ClickJeu(index)}
+                    />
+                ))}
             </div>
         </>
     );
